@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    actionSetFilter,
+    actions,
     FilterValue,
     selectAllItemsCount,
     selectDoneItemsCount,
@@ -17,7 +17,7 @@ export default function Filter() {
     const undoneCount = useSelector(selectUndoneItemsCount);
 
     function handleClick(selected) {
-        dispatch(actionSetFilter(selected));
+        dispatch(actions.setFilter(selected));
     }
 
     return <div className={styles.filter}>

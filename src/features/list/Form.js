@@ -1,6 +1,6 @@
 import {useDispatch} from "react-redux";
 import React, {useState} from "react";
-import {actionAdd} from "./store";
+import {actions} from "./store";
 
 export default function Form (){
     const [value, setValue] = useState('');
@@ -8,7 +8,7 @@ export default function Form (){
 
     function handleSave(event) {
         event.preventDefault();
-        dispatch(actionAdd(value));
+        dispatch(actions.add(value));
         setValue('');
     }
 
