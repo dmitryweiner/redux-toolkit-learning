@@ -1,17 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
-import ListView from "./features/list/ListView";
+import { Switch, Route, Redirect, Link } from 'react-router-dom';
+import AuthView from './features/auth/AuthView';
+import RegistrationView from './features/registration/RegistrationView';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-{/*
-        <Counter />
-*/}
-        <ListView />
+          <Link to="/auth">Логин</Link>&nbsp;
+          <Link to="/registration">Регистрация</Link>&nbsp;
+          <Switch>
+              <Route path="/auth" component={AuthView} />
+              <Route path="/registration" component={RegistrationView} />
+              <Redirect from="/" to="/login" />
+          </Switch>
       </header>
     </div>
   );
