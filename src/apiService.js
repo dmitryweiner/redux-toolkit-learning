@@ -24,11 +24,11 @@ export function getSuccessApiState(apiState) {
     return apiState;
 }
 
-export function getErrorApiState(apiState, error) {
+export function getErrorApiState(apiState, errorMessage) {
     apiState.isSuccess = false;
     apiState.isLoading = false;
     apiState.isError = true;
-    apiState.errorMessage = getErrorMessage(error);
+    apiState.errorMessage = errorMessage;
     return apiState;
 }
 

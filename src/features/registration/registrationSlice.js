@@ -1,5 +1,11 @@
 import {createSlice} from "@reduxjs/toolkit";
-import apiService, {getErrorApiState, getInitialApiState, getSuccessApiState} from "../../apiService";
+import apiService, {
+    getErrorApiState,
+    getErrorMessage,
+    getInitialApiState,
+    getLoadingApiState,
+    getSuccessApiState
+} from "../../apiService";
 import { push } from 'connected-react-router';
 
 function delay(ms) {
@@ -11,16 +17,19 @@ function delay(ms) {
 export const registrationSlice = createSlice({
     name: 'registration',
     initialState: {
-        apiInstance: getInitialApiState(),
+        apiState: getInitialApiState(),
         user: null
     },
     reducers: {
+        registrationLoading: (state) => {
+            state.apiState = getLoadingApiState(state.apiState);
+        },
         registrationDone: (state, action) => {
-            state.apiInstance = getSuccessApiState(state.apiInstance);
+            state.apiState = getSuccessApiState(state.apiState);
             state.user = action.payload;
         },
         registrationError: (state, action) => {
-            state.apiInstance = getErrorApiState(this.apiInstance, action.payload);
+            state.apiState = getErrorApiState(state.apiState, action.payload);
         }
     },
 });
@@ -30,13 +39,13 @@ export const actions = registrationSlice.actions;
 export default registrationSlice.reducer;
 
 export const registrationInit = ({nickname, password}) => dispatch => {
-    try {
-        apiService.user.create({nickname, password})
-            .then(response => response.data)
-            .then(response => dispatch(actions.registrationDone(response)))
-            .then(() => delay(1000))
-            .then(() => dispatch(push('/auth')));
-    } catch (error) {
-        dispatch(actions.registrationError(error));
-    }
+    dispatch(actions.registrationLoading());
+    apiService.user.create({nickname, password})
+        .then(response => response.data)
+        .then(response => dispatch(actions.registrationDone(response)))
+        .then(() => delay(2000))
+        .then(() => dispatch(push('/auth')))
+        .catch(error => dispatch(actions.registrationError(getErrorMessage(error))));
 };
+
+export const selectAuthApiState = state => state.registration.apiState;
