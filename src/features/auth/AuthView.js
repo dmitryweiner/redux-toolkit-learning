@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { authInit } from './authSlice';
 
 export default function AuthView() {
     const [nickname, setNickname] = useState('');
     const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
 
-    function handleSubmit() {
+    function handleSubmit(e) {
         console.log('Trying to login', {nickname, password});
+        dispatch(authInit({nickname, password}));
+        e.preventDefault();
     }
 
     return <>

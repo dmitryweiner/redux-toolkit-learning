@@ -3,6 +3,7 @@ import './App.css';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import AuthView from './features/auth/AuthView';
 import RegistrationView from './features/registration/RegistrationView';
+import UserView from './features/user/UserView';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Switch>
               <Route path="/auth" component={AuthView} />
               <Route path="/registration" component={RegistrationView} />
+              <Route path="/user" component={UserView} />
               <Redirect from="/" to="/auth" />
           </Switch>
       </header>

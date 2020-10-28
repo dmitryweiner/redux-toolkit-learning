@@ -21,7 +21,7 @@ export function getInitialApiState() {
 export function getSuccessApiState(apiState) {
     apiState.isSuccess = true;
     apiState.isLoading = false;
-    return apiState;
+    return {...apiState};
 }
 
 export function getErrorApiState(apiState, errorMessage) {
@@ -29,7 +29,7 @@ export function getErrorApiState(apiState, errorMessage) {
     apiState.isLoading = false;
     apiState.isError = true;
     apiState.errorMessage = errorMessage;
-    return apiState;
+    return {...apiState};
 }
 
 export function getErrorMessage(error) {
@@ -45,7 +45,7 @@ export function getErrorMessage(error) {
 
 const instance = axios.create({
     baseURL: 'http://localhost:3001',
-    //withCredentials: true,
+    withCredentials: true,
     responseType: 'json',
     headers: {
         'Content-Type': 'application/json'
