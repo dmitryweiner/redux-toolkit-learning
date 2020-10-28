@@ -6,8 +6,8 @@ import styles from './ListView.module.css';
 
 export default function ListView() {
     return <div className={styles.root}>
-            <Form/>
-            <Filter/>
-            <List/>
-        </div>;
+        <Form/>
+        <Filter/>
+        <List/>
+    </div>;
 }

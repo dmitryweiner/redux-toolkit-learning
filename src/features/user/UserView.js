@@ -17,6 +17,8 @@ export default function UserView() {
             Registered at: {new Date(currentUser.createdAt).toLocaleString()}
         </>}
         <h4>Список чатов</h4>
-        <button onClick={() => {}}>Создать чат</button>
+        <button onClick={() => {
+        }}>Создать чат
+        </button>
     </>;
 }

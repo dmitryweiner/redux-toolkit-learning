@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import {registrationInit, selectApiState} from './registrationSlice';
-import {useDispatch, useSelector} from 'react-redux';
+import { registrationInit, selectApiState } from './registrationSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import ApiState from '../../components/ApiState';
 
 export default function RegistrationView() {

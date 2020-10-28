@@ -1,6 +1,6 @@
 import React from "react";
-import {useSelector} from "react-redux";
-import {selectFilteredItems} from "./store";
+import { useSelector } from "react-redux";
+import { selectFilteredItems } from "./store";
 import ListItem from "./ListItem";
 
 export default function List() {
@@ -11,8 +11,8 @@ export default function List() {
                 list.map((item) => {
                     return (
                         <ListItem
-                            key={ item.id }
-                            item={ item }
+                            key={item.id}
+                            item={item}
                         />
                     )
                 })

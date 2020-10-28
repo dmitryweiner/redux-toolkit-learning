@@ -37,8 +37,8 @@ export const listSlice = createSlice({
         },
         setFilter: (state, action) => {
             state.filter = action.payload;
-        },
-    },
+        }
+    }
 });
 
 
@@ -53,9 +53,12 @@ export const selectFilteredItems = createSelector(
     filterSelector,
     (list, filter) => {
         switch (filter) {
-            case FilterValue.DONE: return list.filter(item => item.isDone);
-            case FilterValue.UNDONE: return list.filter(item => !item.isDone);
-            default: return list;
+            case FilterValue.DONE:
+                return list.filter(item => item.isDone);
+            case FilterValue.UNDONE:
+                return list.filter(item => !item.isDone);
+            default:
+                return list;
         }
     }
 );

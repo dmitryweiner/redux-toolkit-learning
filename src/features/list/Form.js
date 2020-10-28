@@ -1,8 +1,8 @@
-import {useDispatch} from "react-redux";
-import React, {useState} from "react";
-import {actions} from "./store";
+import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { actions } from "./store";
 
-export default function Form (){
+export default function Form() {
     const [value, setValue] = useState('');
     const dispatch = useDispatch();
 
@@ -17,13 +17,13 @@ export default function Form (){
             <form>
                 <input
                     type="text"
-                    value={ value }
+                    value={value}
                     onChange={
                         (event) => setValue(event.target.value)
                     }
                 />
                 <button
-                    onClick={ handleSave }
+                    onClick={handleSave}
                 >
                     save
                 </button>

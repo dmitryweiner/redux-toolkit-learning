@@ -33,7 +33,7 @@ const authSlice = createSlice({
             state.apiState = getErrorApiState(state, action.payload);
             state.isLogged = false;
             console.log('error', state.apiState, state.isLogged);
-        },
+        }
     }
 });
 

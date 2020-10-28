@@ -31,7 +31,7 @@ export const registrationSlice = createSlice({
         registrationError: (state, action) => {
             state.apiState = getErrorApiState(state.apiState, action.payload);
         }
-    },
+    }
 });
 
 export const actions = registrationSlice.actions;

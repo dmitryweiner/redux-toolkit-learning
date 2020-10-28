@@ -1,6 +1,6 @@
 import React from "react";
-import {useDispatch} from "react-redux";
-import {actions} from "./store";
+import { useDispatch } from "react-redux";
+import { actions } from "./store";
 
 export default function ListItem({item}) {
     const dispatch = useDispatch();
@@ -8,7 +8,7 @@ export default function ListItem({item}) {
         <div className="list-item">
             <input type="checkbox" checked={item.isDone} onChange={() => dispatch(actions.toggleDone(item.id))}/>
             &nbsp;
-            { item.value }
+            {item.value}
             &nbsp;
             <button onClick={() => dispatch(actions.delete(item.id))}>x</button>
         </div>

@@ -61,14 +61,14 @@ export default {
     user: {
         create: ({nickname, password}) => instance.post('/user', {nickname, password}),
         getCurrent: () => instance.get('/user'),
-        getById: (id) => instance.get(`/user/${id}`),
+        getById: (id) => instance.get(`/user/${id}`)
     },
     chat: {
         create: ({title}) => instance.post('/chat', {title}),
-        delete: (id) => instance.delete(`/chat/${id}`),
+        delete: (id) => instance.delete(`/chat/${id}`)
     },
     message: {
         create: ({content, chatId}) => instance.post('/message', {content, chatId}),
-        delete: (id) => instance.delete(`/message/${id}`),
+        delete: (id) => instance.delete(`/message/${id}`)
     }
 }
