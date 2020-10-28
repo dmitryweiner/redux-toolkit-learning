@@ -56,4 +56,6 @@ export default authSlice.reducer;
 
 export const selectApiState = state => state.auth.apiState;
 
+export const selectIsLogged = state => state.auth.isLogged;
+
 export const actions = authSlice.actions;
