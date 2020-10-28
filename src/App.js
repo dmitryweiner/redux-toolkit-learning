@@ -9,8 +9,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-          <Link to="/auth">Логин</Link>&nbsp;
-          <Link to="/registration">Регистрация</Link>&nbsp;
+          <Link to="/auth">Логин</Link>
+          <Link to="/registration">Регистрация</Link>
+          <Link to="/user">Профиль</Link>
           <Switch>
               <Route path="/auth" component={AuthView} />
               <Route path="/registration" component={RegistrationView} />
