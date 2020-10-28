@@ -48,4 +48,4 @@ export const registrationInit = ({nickname, password}) => dispatch => {
         .catch(error => dispatch(actions.registrationError(getErrorMessage(error))));
 };
 
-export const selectAuthApiState = state => state.registration.apiState;
+export const selectApiState = state => state.registration.apiState;

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { authInit } from './authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { authInit, selectApiState } from './authSlice';
+import ApiState from '../../components/ApiState';
 
 export default function AuthView() {
     const [nickname, setNickname] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
+    const apiState = useSelector(selectApiState);
 
     function handleSubmit(e) {
         console.log('Trying to login', {nickname, password});
@@ -15,6 +17,7 @@ export default function AuthView() {
 
     return <>
         <h3>Авторизация</h3>
+        <ApiState {...apiState} />
         <form onSubmit={handleSubmit}>
             <div>
                 <label>

@@ -54,4 +54,6 @@ export const authCheck = () => dispatch => {
 
 export default authSlice.reducer;
 
+export const selectApiState = state => state.auth.apiState;
+
 export const actions = authSlice.actions;
