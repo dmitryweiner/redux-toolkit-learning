@@ -4,6 +4,7 @@ import listReducer from '../features/list/store';
 import registrationReducer from '../features/registration/registrationSlice';
 import authReducer from '../features/auth/authSlice';
 import userReducer from '../features/user/userSlice';
+import chatReducer from '../features/chat/chatSlice';
 import { routerMiddleware, connectRouter } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import logger from 'redux-logger';
@@ -23,7 +24,8 @@ export default configureStore({
         list: listReducer,
         registration: registrationReducer,
         auth: authReducer,
-        user: userReducer
+        user: userReducer,
+        chat: chatReducer
     },
     middleware
 });

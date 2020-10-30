@@ -65,6 +65,7 @@ export default {
     },
     chat: {
         create: ({title}) => instance.post('/chat', {title}),
+        getMyChats: ({userId}) => instance.get(`/chat/?userId=${userId}`),
         delete: (id) => instance.delete(`/chat/${id}`)
     },
     message: {
