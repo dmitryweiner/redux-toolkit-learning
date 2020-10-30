@@ -45,7 +45,6 @@ export const authInit = ({nickname, password}) => (dispatch, getState) => {
         .then(() => dispatch(actions.authDone()))
         .then(() => {
             const redirectPath = getState().auth.redirectPath;
-            console.log('redirectPath', redirectPath);
             if (redirectPath && redirectPath !== '/auth') {
                 dispatch(push(getState().auth.redirectPath));
             } else {
@@ -57,7 +56,6 @@ export const authInit = ({nickname, password}) => (dispatch, getState) => {
 };
 
 export const authCheck = (path) => dispatch => {
-    console.log('Checking auth state, current path = ', path);
     actions.setRedirectPath(path);
     apiService.auth.check()
         .then(() => {
