@@ -1,11 +1,11 @@
-import React from 'react';
-import './App.css';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
+import { authCheck, selectCurrentPath, selectIsLogged } from './features/auth/authSlice';
 import AuthView from './features/auth/AuthView';
 import RegistrationView from './features/registration/RegistrationView';
 import UserView from './features/user/UserView';
-import { useSelector } from 'react-redux';
-import { selectIsLogged } from './features/auth/authSlice';
+import './App.css';
 
 function PrivateRoute({children, ...rest}) {
     const isLogged = useSelector(selectIsLogged);
@@ -29,6 +29,12 @@ function PrivateRoute({children, ...rest}) {
 }
 
 function App() {
+    const dispatch = useDispatch();
+    const path = useSelector(selectCurrentPath);
+    useEffect(() => {
+        dispatch(authCheck(path))
+    }, [dispatch]);
+
     return (
         <div className="App">
             <header className="App-header">

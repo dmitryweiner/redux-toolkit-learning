@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import apiService, {
     getErrorApiState,
     getErrorMessage,
     getInitialApiState,
     getLoadingApiState,
     getSuccessApiState
-} from "../../apiService";
-import { push } from "connected-react-router";
+} from '../../apiService';
+import { push } from 'connected-react-router';
 
 const authSlice = createSlice({
     name: 'auth',
@@ -45,11 +45,16 @@ export const authInit = ({nickname, password}) => dispatch => {
         .catch(error => dispatch(actions.authError(getErrorMessage(error))));
 };
 
-export const authCheck = () => dispatch => {
+export const authCheck = (path) => dispatch => {
     apiService.auth.check()
-        .then(() => dispatch(actions.setIsLogged()))
-        .catch(() => dispatch(push('/auth')))
-        .then(() => dispatch(actions.setIsNotLogged()))
+        .then(() => {
+            dispatch(actions.setIsLogged());
+            dispatch(push(path));
+        })
+        .catch(() => {
+            dispatch(actions.setIsNotLogged());
+            dispatch(push('/auth'));
+        });
 };
 
 export default authSlice.reducer;
@@ -57,5 +62,7 @@ export default authSlice.reducer;
 export const selectApiState = state => state.auth.apiState;
 
 export const selectIsLogged = state => state.auth.isLogged;
+
+export const selectCurrentPath = state => state.router.location.pathname;
 
 export const actions = authSlice.actions;
