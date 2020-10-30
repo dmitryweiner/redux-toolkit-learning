@@ -12,7 +12,8 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: {
         isLogged: false,
-        apiState: getInitialApiState()
+        apiState: getInitialApiState(),
+        redirectPath: ''
     },
     reducers: {
         setIsLogged: (state) => {
@@ -27,35 +28,55 @@ const authSlice = createSlice({
         authDone: (state, action) => {
             state.apiState = getSuccessApiState(state);
             state.isLogged = true;
-            console.log('done', state.apiState, state.isLogged);
         },
         authError: (state, action) => {
             state.apiState = getErrorApiState(state, action.payload);
             state.isLogged = false;
-            console.log('error', state.apiState, state.isLogged);
+        },
+        setRedirectPath: (state, action) => {
+            state.redirectPath = action.payload;
         }
     }
 });
 
-export const authInit = ({nickname, password}) => dispatch => {
+export const authInit = ({nickname, password}) => (dispatch, getState) => {
     dispatch(actions.authLoading());
     apiService.auth.login({nickname, password})
         .then(() => dispatch(actions.authDone()))
-        .then(() => dispatch(push('/user')))
+        .then(() => {
+            const redirectPath = getState().auth.redirectPath;
+            console.log('redirectPath', redirectPath);
+            if (redirectPath && redirectPath !== '/auth') {
+                dispatch(push(getState().auth.redirectPath));
+            } else {
+                dispatch(push('/user'));
+            }
+            dispatch(actions.setRedirectPath(''));
+        })
         .catch(error => dispatch(actions.authError(getErrorMessage(error))));
 };
 
 export const authCheck = (path) => dispatch => {
+    console.log('Checking auth state, current path = ', path);
+    actions.setRedirectPath(path);
     apiService.auth.check()
         .then(() => {
             dispatch(actions.setIsLogged());
-            dispatch(push(path));
+            dispatch(actions.setRedirectPath(''));
         })
         .catch(() => {
             dispatch(actions.setIsNotLogged());
             dispatch(push('/auth'));
         });
 };
+
+export const authLogout = () => dispatch => {
+    apiService.auth.logout()
+        .then(() => {
+            dispatch(actions.setIsNotLogged());
+            dispatch(push('/auth'));
+        });
+}
 
 export default authSlice.reducer;
 
