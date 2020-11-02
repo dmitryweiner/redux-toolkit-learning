@@ -16,7 +16,7 @@ test('creating user should call API and add user to store', async () => {
         id: user.id,
         nickname: user.nickname
     });
-    store.dispatch(registrationInit(user)).then(() => {});
+    await store.dispatch(registrationInit(user));
     await new Promise(resolve => setTimeout(resolve, 2000));
     expect(store.getState().registration.apiState.isSuccess).toBe(true);
     expect(store.getState().registration.apiState.isLoading).toBe(false);

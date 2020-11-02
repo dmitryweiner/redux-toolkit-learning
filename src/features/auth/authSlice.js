@@ -41,7 +41,7 @@ const authSlice = createSlice({
 
 export const authInit = ({nickname, password}) => (dispatch, getState) => {
     dispatch(actions.authLoading());
-    apiService.auth.login({nickname, password})
+    return apiService.auth.login({nickname, password})
         .then(() => dispatch(actions.authDone()))
         .then(() => {
             const redirectPath = getState().auth.redirectPath;
