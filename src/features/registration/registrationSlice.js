@@ -7,6 +7,7 @@ import apiService, {
     getSuccessApiState
 } from "../../apiService";
 import { push } from 'connected-react-router';
+import axios from 'axios';
 
 function delay(ms) {
     return new Promise((resolve, reject) => {
@@ -40,7 +41,7 @@ export default registrationSlice.reducer;
 
 export const registrationInit = ({nickname, password}) => dispatch => {
     dispatch(actions.registrationLoading());
-    apiService.user.create({nickname, password})
+    return apiService.user.create({nickname, password})
         .then(response => response.data)
         .then(response => dispatch(actions.registrationDone(response)))
         .then(() => delay(2000))

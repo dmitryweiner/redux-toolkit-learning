@@ -13,9 +13,12 @@ export const history = createBrowserHistory();
 
 const middleware = [
     ...getDefaultMiddleware({thunk: true}),
-    logger,
     routerMiddleware(history)
 ];
+
+if (process?.env?.NODE_ENV !== 'test') {
+    middleware.push(logger);
+}
 
 export default configureStore({
     reducer: {

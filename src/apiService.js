@@ -43,7 +43,7 @@ export function getErrorMessage(error) {
     return errorMessage;
 }
 
-const instance = axios.create({
+export const instance = axios.create({
     baseURL: 'http://localhost:3001',
     withCredentials: true,
     responseType: 'json',
