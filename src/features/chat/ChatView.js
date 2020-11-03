@@ -9,6 +9,7 @@ import {
     sendMessage
 } from './chatSlice';
 import { selectIsLogged } from '../auth/authSlice';
+import MessageList from '../../components/MessageList';
 
 export default function ChatView({ match }) {
     const { id } = match.params;
@@ -56,8 +57,6 @@ export default function ChatView({ match }) {
             </div>
             <button type="submit">Отправить</button>
         </form>
-        <ul>
-            {messages.map(message => <li key={message.id}>{message.content}</li>)}
-        </ul>
+        <MessageList messages={messages}/>
     </>;
 }

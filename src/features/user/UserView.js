@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser, userInit } from './userSlice';
 import { chatCreate, getMyChats, selectMyChats } from '../chat/chatSlice';
-import ChatsList from '../../components/ChatsList';
+import ChatList from '../../components/ChatList';
 
 export default function UserView() {
     const currentUser = useSelector(selectCurrentUser);
@@ -33,7 +33,7 @@ export default function UserView() {
             Registered at: {new Date(currentUser.createdAt).toLocaleString()}
         </>}
         <h4>Список чатов</h4>
-        <ChatsList list={myChats}/>
+        <ChatList list={myChats}/>
         <h4>Создать чат</h4>
         <div>
             <label>
