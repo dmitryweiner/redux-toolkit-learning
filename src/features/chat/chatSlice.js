@@ -3,6 +3,7 @@ import apiService, {
     getInitialApiState
 } from "../../apiService";
 import { selectIsLogged } from '../auth/authSlice';
+import { selectCurrentUser } from '../user/userSlice';
 
 const chatSlice = createSlice({
     name: 'chat',
@@ -11,7 +12,8 @@ const chatSlice = createSlice({
         currentChat: null,
         chats: [],
         messages: [],
-        participants: []
+        participants: [],
+        searchChats: []
     },
     reducers: {
         setChats: (state, action) => {
@@ -25,6 +27,9 @@ const chatSlice = createSlice({
         },
         setParticipants: (state, action) => {
             state.participants = action.payload;
+        },
+        setSearchChats: (state, action) => {
+            state.searchChats = action.payload;
         }
     }
 });
@@ -33,15 +38,13 @@ export default chatSlice.reducer;
 
 export const actions = chatSlice.actions;
 
-export const chatCreate = ({title}) => dispatch => {
+export const createChat = ({title}) => dispatch => {
     apiService.chat.create({title})
         .then(() => dispatch(getMyChats()));
 };
 
-export const getMyChats = (currentUser) => (dispatch, getState) => {
-    if (!currentUser) {
-        currentUser = getState().user.currentUser;
-    }
+export const getMyChats = () => (dispatch, getState) => {
+    const currentUser = selectCurrentUser(getState());
     if (!currentUser) {
         return;
     }
@@ -50,7 +53,7 @@ export const getMyChats = (currentUser) => (dispatch, getState) => {
         .then(chats => dispatch(actions.setChats(chats)));
 };
 
-export const getChatInfo = (chatId) => (dispatch, getState) => {
+export const getChatInfo = chatId => (dispatch, getState) => {
     if (!selectIsLogged(getState())) return;
 
     apiService.chat.getInfo(chatId)
@@ -68,7 +71,7 @@ export const getChatInfo = (chatId) => (dispatch, getState) => {
         .then(participants => dispatch(actions.setParticipants(participants)));
 }
 
-export const getMessages = (chatId) => (dispatch, getState) => {
+export const getMessages = chatId => (dispatch, getState) => {
     if (!selectIsLogged(getState())) return;
 
     apiService.message.getMessages(chatId)
@@ -77,9 +80,20 @@ export const getMessages = (chatId) => (dispatch, getState) => {
         .then(messages => dispatch(actions.setMessages(messages)));
 }
 
-export const sendMessage = ({content, chatId}) => (dispatch, getState) => {
+export const sendMessage = ({content, chatId}) => dispatch => {
     apiService.message.create({content, chatId})
         .then(() => dispatch(getMessages(chatId)));
+};
+
+export const searchChats = title => dispatch => {
+    apiService.chat.search(title)
+        .then(response => response.data)
+        .then(chats => dispatch(actions.setSearchChats(chats)));
+}
+
+export const joinChat = chatId => dispatch => {
+    apiService.chat.join(chatId)
+        .then(() => dispatch(getMyChats()));
 };
 
 function injectUserData(messages, participants) {
@@ -101,3 +115,5 @@ export const selectMyChats = state => state.chat.chats;
 export const selectCurrentChat = state => state.chat.currentChat;
 
 export const selectParticipants = state => state.chat.participants;
+
+export const selectSearchChats = state => state.chat.searchChats;

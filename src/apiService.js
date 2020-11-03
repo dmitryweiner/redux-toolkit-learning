@@ -65,9 +65,11 @@ export default {
     },
     chat: {
         create: ({title}) => instance.post('/chat', {title}),
-        getMyChats: (userId) => instance.get(`/chat/?userId=${userId}`),
+        getMyChats: (userId) => instance.get(`/chat/?participantId=${userId}`),
+        search: (title) => instance.get(`/chat/?title=${title}`),
         getInfo: (id) => instance.get(`/chat/${id}`),
-        delete: (id) => instance.delete(`/chat/${id}`)
+        delete: (id) => instance.delete(`/chat/${id}`),
+        join: (chatId) => instance.put(`/chat/${chatId}`)
     },
     message: {
         create: ({content, chatId}) => instance.post('/message', {content, chatId}),

@@ -1,8 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-export default function Chat({ id, title }) {
+export default function Chat({ id, title, clickHandle }) {
+    function innerClickHandle(e) {
+        e.preventDefault();
+        clickHandle(id);
+    }
+
     return <li>
-        <Link to={`/chat/${id}`}>{title}</Link>
+        <a href="#" onClick={innerClickHandle}>{title}</a>
     </li>;
 }
