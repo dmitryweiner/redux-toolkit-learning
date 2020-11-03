@@ -17,7 +17,7 @@ const middleware = [
 ];
 
 if (process?.env?.NODE_ENV !== 'test') {
-    middleware.push(logger);
+    //middleware.push(logger);
 }
 
 export default configureStore({

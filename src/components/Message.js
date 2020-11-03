@@ -1,5 +1,10 @@
 import React from 'react';
 
-export default function Message({content}) {
-    return <li>{content}</li>;
+export default function Message({ nickname, content }) {
+    return <li>
+        {nickname && <>
+            <b>{nickname}</b>:&nbsp;
+        </>}
+        {content}
+    </li>;
 }
