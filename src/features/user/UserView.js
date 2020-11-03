@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser, userInit } from './userSlice';
-import { chatCreate, chatsGetList, selectMyChats } from '../chat/chatSlice';
+import { chatCreate, getMyChats, selectMyChats } from '../chat/chatSlice';
+import ChatsList from '../../components/ChatsList';
 
 export default function UserView() {
     const currentUser = useSelector(selectCurrentUser);
@@ -15,9 +16,9 @@ export default function UserView() {
    }, []);
 
     useEffect(() => {
-        dispatch(chatsGetList(currentUser));
+        dispatch(getMyChats(currentUser));
         // eslint-disable-next-line
-    }, [currentUser]);
+    }, [currentUser ? currentUser.id : null]);
 
     function handleCreateChat() {
         if (chatTitle === '') return;
@@ -32,9 +33,7 @@ export default function UserView() {
             Registered at: {new Date(currentUser.createdAt).toLocaleString()}
         </>}
         <h4>Список чатов</h4>
-        <ul>
-            {myChats.map(chat => <li>{chat.id} {chat.title}</li>)}
-        </ul>
+        <ChatsList list={myChats}/>
         <h4>Создать чат</h4>
         <div>
             <label>

@@ -6,6 +6,7 @@ import AuthView from './features/auth/AuthView';
 import RegistrationView from './features/registration/RegistrationView';
 import UserView from './features/user/UserView';
 import './App.css';
+import ChatView from './features/chat/ChatView';
 
 function App() {
     const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
                     <Route path="/auth" component={AuthView}/>
                     <Route path="/registration" component={RegistrationView}/>
                     <Route path="/user" component={UserView}/>
+                    <Route path="/chat/:id" component={ChatView}/>
                     <Redirect from="/" to="/auth"/>
                 </Switch>
             </header>

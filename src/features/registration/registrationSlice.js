@@ -1,13 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import apiService, {
     getErrorApiState,
     getErrorMessage,
     getInitialApiState,
     getLoadingApiState,
     getSuccessApiState
-} from "../../apiService";
+} from '../../apiService';
 import { push } from 'connected-react-router';
-import axios from 'axios';
 
 function delay(ms) {
     return new Promise((resolve, reject) => {
